@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestor de Registros — IndexedDB</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="logo-icon">◈</span>
+        <h1>DataVault</h1>
+        <p class="subtitle">Persistencia local con IndexedDB</p>
+      </div>
+
+      <div class="db-status" id="db-status">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Conectando...</span>
+      </div>
+
+      <div class="stats-panel">
+        <div class="stat-item">
+          <span class="stat-value" id="total-count">0</span>
+          <span class="stat-label">registros</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- FORMULARIO -->
+      <section class="form-section">
+        <div class="section-label">nuevo registro</div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="inp-nombre">Nombre</label>
+            <input type="text" id="inp-nombre" placeholder="Ej: Juan Pérez" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="inp-materia">Materia</label>
+            <input type="text" id="inp-materia" placeholder="Ej: Matemática" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="inp-nota">Nota</label>
+            <input type="number" id="inp-nota" placeholder="1 – 10" min="1" max="10" />
+          </div>
+          <div class="field field-wide">
+            <label for="inp-obs">Observaciones <span class="optional">(opcional)</span></label>
+            <input type="text" id="inp-obs" placeholder="Comentario adicional..." autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <button class="btn-primary" id="btn-guardar" onclick="guardar()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Guardar registro
+          </button>
+          <span class="save-feedback" id="save-feedback"></span>
+        </div>
+      </section>
+
+      <!-- FILTRO Y LISTA -->
+      <section class="list-section">
+        <div class="list-header">
+          <div class="section-label">registros guardados</div>
+          <div class="list-controls">
+            <input type="search" id="inp-filtro" placeholder="Filtrar por nombre..." oninput="filtrar()" />
+            <button class="btn-danger" onclick="borrarTodo()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+              Borrar todo
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="records-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Materia</th>
+                <th>Nota</th>
+                <th>Fecha</th>
+                <th>Obs.</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tabla-body">
+              <!-- Se llena con JS -->
+            </tbody>
+          </table>
+          <div id="empty-state" class="empty-state" style="display:none">
+            <span>◈</span>
+            <p>Sin registros todavía. <br/>Completá el formulario y guardá.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
